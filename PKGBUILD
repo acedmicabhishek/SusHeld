@@ -21,11 +21,13 @@ build() {
 }
 
 package() {
-    cd "$srcdir/SusHeld/build"
-    install -Dm755 SusHeld "$pkgdir/usr/bin/susheld"
-    if [ -f "$srcdir/SusHeld/logo.png" ]; then
-        install -Dm644 "$srcdir/SusHeld/logo.png" "$pkgdir/usr/share/susheld/logo.png"
-    fi
+cd "$srcdir/SusHeld/build"
+
+    # Install the executable
+    install -Dm755 susheld "$pkgdir/usr/bin/susheld"
+
+    # Install the logo next to the executable
+    install -Dm644 "$srcdir/SusHeld/logo.png" "$pkgdir/usr/bin/logo.png"
     #     # Install the systemd service file
     # install -Dm644 "$srcdir/systemd/susheld-suspend.service" "$pkgdir/etc/systemd/system/susheld-suspend.service"
 
