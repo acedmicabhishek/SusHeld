@@ -21,16 +21,14 @@ build() {
 }
 
 package() {
-cd "$srcdir/SusHeld/build"
-
-    # Install the executable
-    install -Dm755 susheld "$pkgdir/usr/bin/susheld"
-
-    # Install the logo next to the executable
-    install -Dm644 "$srcdir/SusHeld/logo.png" "$pkgdir/usr/bin/logo.png"
-    #     # Install the systemd service file
-    # install -Dm644 "$srcdir/systemd/susheld-suspend.service" "$pkgdir/etc/systemd/system/susheld-suspend.service"
-
-    # # Enable the service so it runs on boot and on suspend
-    # systemctl --prefix="$pkgdir" enable susheld-suspend.service
+    # Navigate to the build directory where the executable is located
+    cd "$srcdir/SusHeld/build"
+    
+    # Ensure the 'SusHeld' executable is being correctly installed to the appropriate directory
+    install -Dm755 SusHeld "$pkgdir/usr/bin/susheld"
+    
+    # Install the logo if it exists
+    if [ -f "$srcdir/SusHeld/logo.png" ]; then
+        install -Dm644 "$srcdir/SusHeld/logo.png" "$pkgdir/usr/share/susheld/logo.png"
+    fi
 }
