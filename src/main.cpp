@@ -8,7 +8,7 @@
 namespace fs = std::filesystem;
 
 // Function to get the directory of the executable
-std::string getExecutableDir() {
+std::string getExecutableDir(char* argv[]) {
     return fs::path(argv[0]).remove_filename().string();
 }
 
@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Get the logo path from the same directory as the executable
-    std::string logoPath = getExecutableDir() + "logo.png";
+    std::string logoPath = getExecutableDir(argv) + "logo.png";
 
     // Load logo image
     SDL_Surface* logoSurface = IMG_Load(logoPath.c_str());
