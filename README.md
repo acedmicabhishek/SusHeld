@@ -1,6 +1,7 @@
 # SusHeld
-A tool to manage or stop Suspend 
-let say your going afk but dont want suspend to happen 
+A tool to manage or stop Suspend.
+
+let say your going afk but dont want suspend to happen,
 you run this little program which will take very less power 
 and keep your system alive
 
