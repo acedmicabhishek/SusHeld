@@ -26,4 +26,9 @@ package() {
     if [ -f "$srcdir/SusHeld/logo.png" ]; then
         install -Dm644 "$srcdir/SusHeld/logo.png" "$pkgdir/usr/share/susheld/logo.png"
     fi
+        # Install the systemd service file
+    install -Dm644 "$srcdir/systemd/susheld-suspend.service" "$pkgdir/etc/systemd/system/susheld-suspend.service"
+
+    # Enable the service so it runs on boot and on suspend
+    systemctl --prefix="$pkgdir" enable susheld-suspend.service
 }
