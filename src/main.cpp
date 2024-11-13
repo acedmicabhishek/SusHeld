@@ -3,14 +3,21 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include <filesystem>
 
-// circle
+namespace fs = std::filesystem;
+
+// Function to get the directory of the executable
+std::string getExecutableDir() {
+    return fs::path(argv[0]).remove_filename().string();
+}
+
+// Function to render a filled circle (midpoint circle algorithm)
 void SDL_RenderFillCircle(SDL_Renderer* renderer, int x, int y, int radius) {
-    // midpoint circle algorithm
     for (int w = 0; w < radius * 2; w++) {
         for (int h = 0; h < radius * 2; h++) {
-            int dx = radius - w; // Horizontal offset
-            int dy = radius - h; // Vertical offset
+            int dx = radius - w;
+            int dy = radius - h;
             if ((dx * dx + dy * dy) <= (radius * radius)) {
                 SDL_RenderDrawPoint(renderer, x + dx, y + dy);
             }
@@ -41,8 +48,11 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    // Get the logo path from the same directory as the executable
+    std::string logoPath = getExecutableDir() + "logo.png";
+
     // Load logo image
-    SDL_Surface* logoSurface = IMG_Load("logo.png");
+    SDL_Surface* logoSurface = IMG_Load(logoPath.c_str());
     if (!logoSurface) {
         SDL_Log("IMG_Load failed: %s", SDL_GetError());
         SDL_DestroyWindow(window);
@@ -84,7 +94,7 @@ int main(int argc, char* argv[]) {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        // bouncing circle
+        // Bouncing circle
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderFillCircle(renderer, x, y, radius);
 
@@ -92,7 +102,7 @@ int main(int argc, char* argv[]) {
         x += dx;
         y += dy;
 
-        // Bounce the circle off the walls { Hardcoded for 1080p }
+        // Bounce the circle off the walls (Hardcoded for 1080p)
         if (x - radius < 0 || x + radius > 1920) {
             dx = -dx;
         }
