@@ -26,9 +26,10 @@ package() {
     
     # Ensure the 'SusHeld' executable is being correctly installed to the appropriate directory
     install -Dm755 SusHeld "$pkgdir/usr/bin/susheld"
+    install -Dm644 "$srcdir/SusHeld/logo.png" "$pkgdir/usr/bin/logo.png"
     
     # Install the logo if it exists
     if [ -f "$srcdir/SusHeld/logo.png" ]; then
-        install -Dm644 "$srcdir/SusHeld/logo.png" "$pkgdir/usr/share/susheld/logo.png"
+        install -Dm644 "$srcdir/SusHeld/logo.png" "$pkgdir/usr/bin/logo.png"
     fi
 }
